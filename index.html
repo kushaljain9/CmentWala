@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cmentwala - Direct Cement Delivery</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <h1><i class="fas fa-truck"></i> Cmentwala</h1>
+                <p>Direct Cement Delivery</p>
+            </div>
+            <nav class="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#products" class="nav-link">Products</a>
+                <a href="#calculator" class="nav-link">Calculator</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <button class="btn-login" onclick="showLoginModal()">Login</button>
+            </nav>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Premium Cement Delivery</h1>
+                <p>Direct delivery to your construction site. Minimum 100 bags. Prepaid only.</p>
+                <div class="hero-features">
+                    <div class="feature">
+                        <i class="fas fa-shipping-fast"></i>
+                        <span>2-4 Days Delivery</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>100% Prepaid</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-certificate"></i>
+                        <span>GST Compliant</span>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="showLoginModal()">Start Ordering</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <h2>Available Cement Brands</h2>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section id="calculator" class="calculator">
+        <div class="container">
+            <h2>Cement Calculator</h2>
+            <div class="calc-container">
+                <div class="calc-input">
+                    <label>Area (sq ft)</label>
+                    <input type="number" id="areaInput" placeholder="Enter area in sq ft">
+                </div>
+                <div class="calc-input">
+                    <label>Thickness (inches)</label>
+                    <input type="number" id="thicknessInput" placeholder="Enter thickness" value="4">
+                </div>
+                <button class="btn-secondary" onclick="calculateCement()">Calculate</button>
+                <div class="calc-result" id="calcResult"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+91 9876543210</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp Support</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>support@cmentwala.com</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <h2>Login to Cmentwala</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input type="tel" id="mobileNumber" placeholder="Enter 10-digit mobile number" required>
+                </div>
+                <button type="submit" class="btn-primary">Send OTP</button>
+            </form>
+            
+            <div id="otpSection" class="hidden">
+                <div class="form-group">
+                    <label>Enter OTP</label>
+                    <input type="text" id="otpInput" placeholder="Enter 6-digit OTP" maxlength="6">
+                </div>
+                <button class="btn-primary" onclick="verifyOTP()">Verify OTP</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div id="registrationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRegistrationModal()">&times;</span>
+            <h2>Complete Your Profile</h2>
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label>Name / Business Name *</label>
+                    <input type="text" id="businessName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email (Optional)</label>
+                    <input type="email" id="email">
+                </div>
+                <div class="form-group">
+                    <label>Business Type *</label>
+                    <select id="businessType" required>
+                        <option value="">Select Business Type</option>
+                        <option value="contractor">Contractor</option>
+                        <option value="builder">Builder</option>
+                        <option value="retailer">Retailer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>GST Number (Optional)</label>
+                    <input type="text" id="gstNumber" placeholder="Enter GST Number">
+                </div>
+                <div class="form-group">
+                    <label>PAN Card (Optional)</label>
+                    <input type="text" id="panCard" placeholder="Enter PAN Number">
+                </div>
+                <div class="form-group">
+                    <label>Delivery Address *</label>
+                    <textarea id="deliveryAddress" required placeholder="Enter complete delivery address"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Complete Registration</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard (Hidden initially) -->
+    <div id="dashboard" class="dashboard hidden">
+        <div class="dashboard-header">
+            <h2>Welcome to Cmentwala Dashboard</h2>
+            <button class="btn-logout" onclick="logout()">Logout</button>
+        </div>
+        
+        <div class="dashboard-tabs">
+            <button class="tab-btn active" onclick="showTab('orders')">My Orders</button>
+            <button class="tab-btn" onclick="showTab('shop')">Shop</button>
+            <button class="tab-btn" onclick="showTab('profile')">Profile</button>
+        </div>
+
+        <!-- Orders Tab -->
+        <div id="ordersTab" class="tab-content active">
+            <h3>My Orders</h3>
+            <div id="ordersList" class="orders-list">
+                <!-- Orders will be loaded dynamically -->
+            </div>
+        </div>
+
+        <!-- Shop Tab -->
+        <div id="shopTab" class="tab-content">
+            <h3>Shop Cement</h3>
+            <div class="shop-filters">
+                <select id="brandFilter">
+                    <option value="">All Brands</option>
+                    <option value="ultratech">UltraTech</option>
+                    <option value="acc">ACC</option>
+                    <option value="ambuja">Ambuja</option>
+                    <option value="shree">Shree Cement</option>
+                </select>
+                <select id="gradeFilter">
+                    <option value="">All Grades</option>
+                    <option value="43">Grade 43</option>
+                    <option value="53">Grade 53</option>
+                </select>
+            </div>
+            <div id="shopProducts" class="shop-products">
+                <!-- Products will be loaded dynamically -->
+            </div>
+            <div class="cart-summary">
+                <div class="cart-info">
+                    <span>Total Bags: <span id="totalBags">0</span></span>
+                    <span>Total Amount: ₹<span id="totalAmount">0</span></span>
+                </div>
+                <button class="btn-primary" onclick="proceedToCheckout()" disabled id="checkoutBtn">
+                    Proceed to Checkout (Min 100 bags)
+                </button>
+            </div>
+        </div>
+
+        <!-- Profile Tab -->
+        <div id="profileTab" class="tab-content">
+            <h3>Profile Information</h3>
+            <div id="profileInfo" class="profile-info">
+                <!-- Profile info will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content large">
+            <span class="close" onclick="closeCheckoutModal()">&times;</span>
+            <h2>Checkout</h2>
+            <div class="checkout-summary">
+                <h3>Order Summary</h3>
+                <div id="checkoutItems"></div>
+                <div class="checkout-total">
+                    <strong>Total: ₹<span id="checkoutTotal">0</span></strong>
+                </div>
+            </div>
+            <div class="checkout-terms">
+                <label>
+                    <input type="checkbox" id="termsCheckbox" required>
+                    I agree to the <a href="#" onclick="showTerms()">Terms & Conditions</a> and <a href="#" onclick="showNoRefundPolicy()">No Refund Policy</a>
+                </label>
+            </div>
+            <div class="payment-methods">
+                <h3>Payment Method</h3>
+                <div class="payment-options">
+                    <label>
+                        <input type="radio" name="payment" value="razorpay" checked>
+                        <i class="fas fa-credit-card"></i> Razorpay (Cards/UPI)
+                    </label>
+                    <label>
+                        <input type="radio" name="payment" value="upi">
+                        <i class="fab fa-google-pay"></i> Direct UPI
+                    </label>
+                    <label>
+                        <input type="radio" name="payment" value="bank">
+                        <i class="fas fa-university"></i> Bank Transfer
+                    </label>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="processPayment()">Pay Now</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Cmentwala. All rights reserved. | <a href="#" onclick="showNoRefundPolicy()">No Refund Policy</a> | <a href="#" onclick="showTerms()">Terms & Conditions</a></p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>
